@@ -125,9 +125,30 @@ function Vector(x, y){
 
     this.normalize = () => {
         let m = this.magnitude();
-        if(m != 0){
-            this.div(m);
+        if(m !== 0){
+            this.divVal(m);
         }
+    }
+
+    //multiples the magnitude of the vector by val and changes the components to reflect that
+    this.magnitudeMultVal = (val) => {
+        let n = vNormalize(this);
+        this.multVal(n, val);
+    }
+
+    //copies this vector and returns it
+    this.copy = () => {
+        return new Vector(this.x, this.y);
+    }
+
+    //return the distance of two vectors
+    this.distance = (v) => {
+        return Math.sqrt((this.x - v.x)*(this.x - v.x) + (this.y - v.y)*(this.y - v.y));
+    }
+
+    //returns the distance of two vectors squared
+    this.distanceSQ = (v) => {
+        return (this.x - v.x)*(this.x - v.x) + (this.y - v.y)*(this.y - v.y);
     }
 }
 
@@ -228,4 +249,21 @@ function vNormalize(v){
         return vDivVal(m);
     }
     return new Vector(0, 0);
+}
+
+function vMagnitudeMultVal(v, val){
+    let n = vNormalize(v);
+    return vMultVal(n, val);
+}
+
+function vCopy(v){
+    return new Vector(v.x, v.y);
+}
+
+function vDistance(v1, v2){
+    return Math.sqrt((v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y));
+}
+
+function vDistanceSQ(v1, v2){
+    return (v1.x - v2.x)*(v1.x - v2.x) + (v1.y - v2.y)*(v1.y - v2.y);
 }
